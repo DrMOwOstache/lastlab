@@ -30,7 +30,7 @@ public:
     friend class SortedMultiMap;
     SetNode(TElem e,node p, node r, node l, int le, int cap);
     bool removeValue(TValue v);
-    TElem getElement();
+    std::pair<TKey, TValue> getElement(int i);
     node goRight();
     node goLeft();
     node goUp();

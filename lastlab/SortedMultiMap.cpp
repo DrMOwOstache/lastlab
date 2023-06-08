@@ -284,9 +284,9 @@ bool SetNode::removeValue(TValue v)
 	return true;
 }
 
-TElem SetNode::getElement()
+pair<TKey, TValue> SetNode::getElement(int i)
 {
-	return element;
+	return pair<TKey, TValue>(element.first, element.second[i]);
 }
 
 node SetNode::goRight()

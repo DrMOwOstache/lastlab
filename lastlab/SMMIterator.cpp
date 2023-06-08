@@ -13,9 +13,10 @@ void SMMIterator::first() {
 		current = map.root;
 		while (!past.empty())
 			past.pop();
+		past.push(current);
 		while (current->goLeft() != nullptr)
 		{
-			past.push(current);
+			past.push(current->goLeft());
 			current = current->goLeft();
 		}
 	}
@@ -30,9 +31,24 @@ void SMMIterator::first() {
 void SMMIterator::next(){
 	if (!valid())
 		throw exception();
-	if (index == current->getSize() - 1)
+	if (index >= current->getSize() - 1)
 	{
-		if (direction == 1)
+		node aux = past.top();
+		past.pop();
+		if (aux->goRight() != nullptr)
+		{
+			aux = aux->goRight();
+			while (aux != nullptr)
+			{
+				past.push(aux);
+				aux = aux->goLeft();
+			}
+		}
+		if (!past.empty())
+			current = past.top();
+		else
+			current = nullptr;
+		/*if (direction == 1)
 		{
 			if (current->goRight() != nullptr)
 			{
@@ -65,7 +81,7 @@ void SMMIterator::next(){
 			}
 			else
 				current = nullptr;
-		}
+		}*/
 		index = 0;
 	}
 	else
@@ -76,9 +92,9 @@ bool SMMIterator::valid() const{
 	return current != nullptr;
 }
 
-TElem SMMIterator::getCurrent() const{
+pair<TKey, TValue> SMMIterator::getCurrent() const{
 	if(valid())
-		return current->getElement();
+		return current->getElement(index);
 	throw exception();
 }
 

@@ -32,7 +32,7 @@ void testAll(){
     SMMIterator it = smm.iterator();
     it.first();
     while (it.valid()){
-    	TElem e = it.getCurrent();
+        std::pair<TKey, TValue> e = it.getCurrent();
     	it.next();
     }
     assert(smm.remove(1, 2) == true);

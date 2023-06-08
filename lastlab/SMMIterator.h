@@ -19,6 +19,6 @@ public:
 	void first();
 	void next();
 	bool valid() const;
-   	TElem getCurrent() const;
+	std::pair<TKey, TValue> getCurrent() const;
 };
 

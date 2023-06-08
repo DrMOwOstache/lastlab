@@ -61,7 +61,7 @@ void testIteratorSteps(SortedMultiMap& m) {
 		c++;
 		smmi.next();
 	}
-	cout << c << ' ' << m.size() << '\n';
+	//cout << c << ' ' << m.size() << '\n';
 	assert(c == m.size());
 }
 
@@ -78,7 +78,7 @@ void testRelation(Relation r) {
 	smit.next();
 	while (smit.valid()) {
 		TKey current = smit.getCurrent().first;
-		assert(current == smit.getCurrent().first || current == smit.getCurrent().first / 2);
+		assert(current == smit.getCurrent().second || current == smit.getCurrent().second / 2);
 		assert(r(first, current));
 		first = current;
 		smit.next();
