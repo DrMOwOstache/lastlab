@@ -2,32 +2,34 @@
 #include "SortedMultiMap.h"
 
 SMMIterator::SMMIterator(const SortedMultiMap& d) : map(d){
-	index = 0;
-	direction = 1;
-	current = map.root;
-	while (!past.empty())
-		past.pop();
-	while (current->goLeft() != nullptr)
-	{
-		past.push(current);
-		current = current->goLeft();
-	}
+	first();
 }
 
 void SMMIterator::first() {
 	index = 0;
 	direction = 1;
-	current = map.root;
-	while (!past.empty())
-		past.pop();
-	while (current->goLeft() != nullptr)
+	if (!map.isEmpty())
 	{
-		past.push(current);
-		current = current->goLeft();
+		current = map.root;
+		while (!past.empty())
+			past.pop();
+		while (current->goLeft() != nullptr)
+		{
+			past.push(current);
+			current = current->goLeft();
+		}
+	}
+	else
+	{
+		current = nullptr;
+		while (!past.empty())
+			past.pop();
 	}
 }
 
 void SMMIterator::next(){
+	if (!valid())
+		throw exception();
 	if (index == current->getSize() - 1)
 	{
 		if (direction == 1)
@@ -75,7 +77,9 @@ bool SMMIterator::valid() const{
 }
 
 TElem SMMIterator::getCurrent() const{
-	return current->getElement();
+	if(valid())
+		return current->getElement();
+	throw exception();
 }
 
 

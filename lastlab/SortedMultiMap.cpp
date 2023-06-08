@@ -92,6 +92,8 @@ bool SortedMultiMap::remRec(node current, TKey c, TValue v)
 	if (current->element.first == c)
 	{
 		bool arg = current->removeValue(v);
+		if (arg == false)
+			return false;
 		if (current->length == 0)
 		{
 			bool rig = false;
@@ -208,6 +210,8 @@ bool SortedMultiMap::remove(TKey c, TValue v) {
 		if (root->element.first == c)
 		{
 			bool arg = root->removeValue(v);
+			if (arg == false)
+				return false;
 			if (root->length == 0)
 			{
 				node p = root;
@@ -270,7 +274,7 @@ SetNode::SetNode(TElem e,node p, node r, node l, int le, int cap)
 bool SetNode::removeValue(TValue v)
 {
 	int pos = 0;
-	while (v != element.second[pos])
+	while (v != element.second[pos] && pos<length)
 		pos++;
 	if (pos == length)
 		return false;

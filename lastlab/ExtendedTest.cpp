@@ -61,7 +61,7 @@ void testIteratorSteps(SortedMultiMap& m) {
 		c++;
 		smmi.next();
 	}
-	//cout << c << ' ' << m.size();
+	cout << c << ' ' << m.size() << '\n';
 	assert(c == m.size());
 }
 
